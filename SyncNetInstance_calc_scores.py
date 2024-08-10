@@ -39,6 +39,10 @@ class SyncNetInstance(torch.nn.Module):
 
         self.__S__ = S(num_layers_in_fc_layers = num_layers_in_fc_layers).cuda();
 
+    def clear_tmp_dir(self, opt):
+        if os.path.exists(os.path.join(opt.tmp_dir,opt.reference)):
+          rmtree(os.path.join(opt.tmp_dir,opt.reference))
+
     def evaluate(self, opt, videofile):
 
         self.__S__.eval();
@@ -46,10 +50,7 @@ class SyncNetInstance(torch.nn.Module):
         # ========== ==========
         # Convert files
         # ========== ==========
-
-        if os.path.exists(os.path.join(opt.tmp_dir,opt.reference)):
-          rmtree(os.path.join(opt.tmp_dir,opt.reference))
-
+        self.clear_tmp_dir(opt)
         os.makedirs(os.path.join(opt.tmp_dir,opt.reference))
 
         command = ("ffmpeg -loglevel error -y -i %s -threads 1 -f image2 %s" % (videofile,os.path.join(opt.tmp_dir,opt.reference,'%06d.jpg'))) 

@@ -43,3 +43,10 @@ data/
 protos/
 utils/
 *.pth
+*.jpg
+*.txt
+*.wav
+11484.out
+*.err
+*.out
+wandb/**
