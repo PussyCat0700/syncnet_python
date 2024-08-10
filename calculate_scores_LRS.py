@@ -72,4 +72,4 @@ if opt.runname is not None:
     run.log({"lse_c": lse_c, "lse_d":lse_d,})
     wandb.finish()
 
-s.clear_tmp_dir()
+s.clear_tmp_dir(opt)
