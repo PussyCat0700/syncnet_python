@@ -63,13 +63,13 @@ print ('Average Minimum Distance: {}'.format(avg_min_distance/len(all_videos)))
 resultfilename = opt.postfix if opt.postfix else "result"
 lse_c = avg_confidence/len(all_videos)
 lse_d = avg_min_distance/len(all_videos)
+print(f'{lse_c=}, {lse_d=}')
+if opt.runname is not None:
+    run.log({"lse_c": lse_c, "lse_d":lse_d,})
+    wandb.finish()
 with open(os.path.join(opt.data_root, resultfilename+".txt"), "w") as f:
     f.write('Average Confidence: {}'.format(lse_c))
     f.write("\n")
     f.write('Average Minimum Distance: {}'.format(lse_d))
-
-if opt.runname is not None:
-    run.log({"lse_c": lse_c, "lse_d":lse_d,})
-    wandb.finish()
 
 s.clear_tmp_dir(opt)
